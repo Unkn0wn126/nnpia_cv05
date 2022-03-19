@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
     Optional<UserRole> findById(Long id);
 
-    @Query("select role from user_roles role join UserHasRole ur on ur.userRoleId = role.id where ur.userId = 1")
+    @Query("select role from user_roles role join UserHasRole ur on ur.role.id = role.id where ur.user.id = 1")
     List<UserRole> findUserRoleByUserId(Long id);
 }

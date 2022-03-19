@@ -1,21 +1,41 @@
 package cz.upce.fei.cv05.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
-@IdClass(UserHasRoleId.class)
 public class UserHasRole {
 
-    @Id
-    @Getter
-    @Setter
-    private Long userId;
+    @EmbeddedId
+    private UserHasRoleId id;
 
-    @Id
-    @Getter
-    @Setter
-    private Long userRoleId;
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @MapsId("user_id")
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @MapsId("role_id")
+    @JoinColumn(name = "role_id")
+    private UserRole role;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        UserHasRole that = (UserHasRole) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
