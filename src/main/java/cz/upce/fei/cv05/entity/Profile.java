@@ -20,7 +20,7 @@ public class Profile {
     @OneToMany(mappedBy = "profile")
     private Set<Post> profilePosts;
 
-    @OneToOne(optional = false, mappedBy = "profile", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "profile", cascade = CascadeType.REMOVE)
     private User user;
 
     @Column()

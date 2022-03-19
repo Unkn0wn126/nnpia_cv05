@@ -3,10 +3,12 @@ package cz.upce.fei.cv05.repository;
 import cz.upce.fei.cv05.entity.Reaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface ReactionRepository extends JpaRepository<Reaction, Long> {
     Optional<Reaction> findById(Long id);
 
