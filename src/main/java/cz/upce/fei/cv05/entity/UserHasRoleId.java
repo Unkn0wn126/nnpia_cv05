@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class UserHasRoleId implements Serializable {
     @Getter
@@ -17,5 +18,18 @@ public class UserHasRoleId implements Serializable {
     public UserHasRoleId(Long userId, Long userRoleId) {
         this.userId = userId;
         this.userRoleId = userRoleId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserHasRoleId that = (UserHasRoleId) o;
+        return userId.equals(that.userId) && userRoleId.equals(that.userRoleId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, userRoleId);
     }
 }

@@ -17,6 +17,6 @@ public class UserRole {
     @Getter
     @Setter
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(unique = true, nullable = false, length = 20)
     private UserRoleType userRoleType;
 }
