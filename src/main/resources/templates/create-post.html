@@ -3,15 +3,23 @@
 <head th:replace="fragments/head ::htmlHead"></head>
 <body>
 <div th:replace="fragments/navigation ::navbar"></div>
-<section>
-    <form action="#" th:action="@{/post-form-process}"
-          th:object="${post}" method="post">
-        <label>Heading</label>
-        <input type="text" th:field="*{heading}">
-        <label>Content</label>
-        <textarea th:field="*{content}"></textarea>
-        <input type="submit">
-    </form>
-</section>
+<div class="wrapper">
+    <section class="form-container">
+        <form action="#" th:action="@{/post-form-process}"
+              th:object="${post}" method="post">
+            <div class="form-item">
+                <label>Heading</label>
+                <input type="text" th:field="*{heading}">
+            </div>
+            <div class="form-item">
+                <label>Content</label>
+                <textarea th:field="*{content}"></textarea>
+            </div>
+            <div class="form-item">
+                <input type="submit">
+            </div>
+        </form>
+    </section>
+</div>
 </body>
 </html>

@@ -3,28 +3,48 @@
 <head th:replace="fragments/head ::htmlHead"></head>
 <body>
 <div th:replace="fragments/navigation ::navbar"></div>
+<div  class="wrapper">
+    <section class="form-container">
+        <form action="#" th:action="@{/user-form-process}"
+              th:object="${user}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}">
+            <div class="form-item">
+                <label>User name</label>
+                <input type="text" th:field="*{name}">
+            </div>
+            <div class="form-item">
+                <label>E-mail</label>
+                <input type="text" th:field="*{email}">
+            </div>
+            <div class="form-item">
+                <label>Password</label>
+                <input type="password" th:field="*{password}">
+            </div>
+            <div class="form-item">
+                <label>First name</label>
+                <input type="text" th:field="*{profile.name}">
+            </div>
+            <div class="form-item">
+                <label>Surname</label>
+                <input type="text" th:field="*{profile.surname}">
+            </div>
+            <div class="form-item">
+                <label>Quote</label>
+                <input type="text" th:field="*{profile.quote}">
+            </div>
+            <div class="form-item">
+                <label>Date of birth</label>
+                <input type="date" th:field="*{profile.dateOfBirth}">
+            </div>
+            <div class="form-item">
+                <label>Profile picture</label>
+                <input type="file" th:field="*{profile.image}">
+            </div>
+            <div class="form-item">
+                <input type="submit">
+            </div>
+        </form>
+    </section>
+</div>
 </body>
-<section>
-    <form action="#" th:action="@{/user-form-process}"
-          th:object="${user}" method="post" enctype="multipart/form-data">
-        <input type="hidden" th:field="*{id}">
-        <label>User name</label>
-        <input type="text" th:field="*{name}">
-        <label>E-mail</label>
-        <input type="text" th:field="*{email}">
-        <label>Password</label>
-        <input type="password" th:field="*{password}">
-        <label>First name</label>
-        <input type="text" th:field="*{profile.name}">
-        <label>Surname</label>
-        <input type="text" th:field="*{profile.surname}">
-        <label>Quote</label>
-        <input type="text" th:field="*{profile.quote}">
-        <label>Date of birth</label>
-        <input type="date" th:field="*{profile.dateOfBirth}">
-        <label>Profile picture</label>
-        <input type="file" th:field="*{profile.image}">
-        <input type="submit">
-    </form>
-</section>
 </html>

@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="fragments/head ::htmlHead"></head>
+<head th:replace="fragments/head ::htmlHead">
+    <link rel="stylesheet" type="text/css" href="../static/main.css"/>
+</head>
 <body>
 <div th:replace="fragments/navigation ::navbar"></div>
+<div class="wrapper">
+    <section class="content">
+        <div class="post">
+            <img th:if="${post.profile.pathToImage != null}" th:src="@{/images/{path} (path=${post.profile.pathToImage})}" width="100">
+            <h3 th:text="${post.heading}"></h3>
+            <p th:text="'Posted by ' + ${post.profile.name} + ' ' + ${post.profile.surname}"></p>
+            <p th:text="'Posted at ' + ${post.postedAt}"></p>
+            <p th:text="${post.content}"></p>
+            <a th:if="${canDelete}" th:href="@{/post-delete/{id}(id=${post.id})}">X</a>
+        </div>
+        <div class="post" th:each="childPost : ${childPosts}">
+            <img th:if="${childPost.profile.pathToImage != null}" th:src="@{/images/{path} (path=${childPost.profile.pathToImage})}" width="100">
+            <h3 th:text="${childPost.heading}"></h3>
+            <p th:text="'Posted by ' + ${childPost.profile.name} + ' ' + ${childPost.profile.surname}"></p>
+            <p th:text="'Posted at ' + ${childPost.postedAt}"></p>
+            <p th:text="${childPost.content}"></p>
+        </div>
+    </section>
+</div>
 </body>
-<section>
-    <div>
-        <img th:if="${post.profile.pathToImage != null}" th:src="@{/images/{path} (path=${post.profile.pathToImage})}" width="100">
-        <h3 th:text="${post.heading}"></h3>
-        <p th:text="'Posted by ' + ${post.profile.name} + ' ' + ${post.profile.surname}"></p>
-        <p th:text="'Posted at ' + ${post.postedAt}"></p>
-        <p th:text="${post.content}"></p>
-        <a th:if="${canDelete}" th:href="@{/post-delete/{id}(id=${post.id})}">X</a>
-    </div>
-    <div th:each="childPost : ${childPosts}">
-        <img th:if="${childPost.profile.pathToImage != null}" th:src="@{/images/{path} (path=${childPost.profile.pathToImage})}" width="100">
-        <h3 th:text="${childPost.heading}"></h3>
-        <p th:text="'Posted by ' + ${childPost.profile.name} + ' ' + ${childPost.profile.surname}"></p>
-        <p th:text="'Posted at ' + ${childPost.postedAt}"></p>
-        <p th:text="${childPost.content}"></p>
-    </div>
-</section>
 </html>

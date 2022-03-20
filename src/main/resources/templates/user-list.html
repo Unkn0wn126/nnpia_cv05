@@ -3,11 +3,13 @@
 <head th:replace="fragments/head ::htmlHead"></head>
 <body>
 <div th:replace="fragments/navigation ::navbar"></div>
+<div class="wrapper">
+    <section class="content user-list">
+        <div class="user" th:each="user : ${users}">
+            <a th:href="@{/user/{id}(id=${user.id})}"><h3 th:text="${user.profile.name} + ' ' + ${user.profile.surname}"></h3></a>
+            <p th:text="${user.profile.quote}"></p>
+        </div>
+    </section>
+</div>
 </body>
-<section>
-    <div th:each="user : ${users}">
-        <a th:href="@{/user/{id}(id=${user.id})}"><h3 th:text="${user.profile.name} + ' ' + ${user.profile.surname}"></h3></a>
-        <p th:text="${user.profile.quote}"></p>
-    </div>
-</section>
 </html>

@@ -3,16 +3,23 @@
 <head th:replace="fragments/head ::htmlHead"></head>
 <body>
 <div th:replace="fragments/navigation ::navbar"></div>
-<section>
-    <form action="#" th:action="@{/login-form-process}"
-          th:object="${user}" method="post">
-        <label>Username</label>
-        <input type="text" th:field="*{name}">
-        <label>Password</label>
-        <input type="password" th:field="*{password}">
-        <input type="submit">
-    </form>
-    <a th:href="@{'/user-form'}">Create profile</a>
-</section>
+<div class="wrapper">
+    <section class="form-container">
+        <form action="#" th:action="@{/login-form-process}"
+              th:object="${user}" method="post">
+            <div class="form-item">
+                <label>Username</label>
+                <input type="text" th:field="*{name}">
+            </div>
+            <div class="form-item">
+                <label>Password</label>
+                <input type="password" th:field="*{password}">
+            </div>
+            <div class="form-item"></div>
+            <input class="form-button" type="submit" value="Login">
+            <a class="form-button" th:href="@{'/user-form'}">Create profile</a>
+        </form>
+    </section>
+</div>
 </body>
 </html>
