@@ -3,9 +3,7 @@ package cz.upce.fei.cv05.controller;
 import cz.upce.fei.cv05.dto.PostDto;
 import cz.upce.fei.cv05.dto.ProfileDto;
 import cz.upce.fei.cv05.dto.ReactionDto;
-import cz.upce.fei.cv05.entity.Post;
-import cz.upce.fei.cv05.entity.Profile;
-import cz.upce.fei.cv05.entity.Reaction;
+import cz.upce.fei.cv05.entity.*;
 import cz.upce.fei.cv05.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -83,7 +83,7 @@ public class PostController {
             reactionAuthor.setDateOfBirth(reactionProfile.getDateOfBirth().toString());
             reactionAuthor.setId(reactionProfile.getId());
             reactionAuthor.setQuote(reactionProfile.getQuote());
-            // reactionAuthor.setImage(reactionProfile.getPathToImage());
+            reactionAuthor.setPathToImage(reactionProfile.getPathToImage());
             reactionDto.setProfile(reactionAuthor);
 
             postDto.getPostReactions().add(reactionDto);
@@ -106,10 +106,45 @@ public class PostController {
                 map(this::convertToDto).
                 collect(Collectors.toList());
 
+        boolean canDelete = canDeletePost(post);
+        model.addAttribute("canDelete", canDelete);
+
         model.addAttribute("post", postDto);
         model.addAttribute("childPosts", childPostsDto);
 
         return "post-detail";
+    }
+
+    @GetMapping("/post-delete/{id}")
+    public String deletePost(@PathVariable(required = false) Long id, Model model){
+        if (sessionService.getUser() == null){
+            return "redirect:/login";
+        }
+
+        Post post = postService.getPost(id);
+        if (!canDeletePost(post)){
+            return "redirect:/post-list";
+        }
+
+        PostDto postDto = convertToDto(post);
+        postService.remove(postDto.getId());
+
+        return "redirect:/post-list";
+    }
+
+    private boolean canDeletePost(Post post){
+        if(Objects.equals(post.getProfile().getId(), sessionService.getUser().getProfile().getId())){
+            return true;
+        }
+        Set<UserHasRole> userRoles = sessionService.getUser().getUserRoles();
+        for (UserHasRole userRole:
+                userRoles) {
+            if (userRole.getRole().getUserRoleType() == UserRoleType.ADMIN){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @GetMapping("/post-form")
