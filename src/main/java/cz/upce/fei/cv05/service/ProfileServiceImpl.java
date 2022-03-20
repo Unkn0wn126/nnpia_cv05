@@ -13,6 +13,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @SessionScope
@@ -32,19 +33,13 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void add(Long userId, String name, String surname, String quote, Date dateOfBirth) {
-        if (sessionService.getUser() == null){
-            throw new RuntimeException();
-        }
-        List<UserRole> roles = userRoleRepository.findUserRoleByUserId(sessionService.getUser().getId());
-        if (!roles.contains(UserRoleType.ADMIN) && !Objects.equals(sessionService.getUser().getId(), userId)){
-            throw new RuntimeException();
-        }
-
+    public void add(Long userId, String name, String surname, String quote, Date dateOfBirth, String pathToImage) {
         Profile profile = new Profile();
         profile.setName(name);
         profile.setSurname(surname);
         profile.setQuote(quote);
+        profile.setDateOfBirth(dateOfBirth);
+        profile.setPathToImage(pathToImage);
 
         profileRepository.save(profile);
 
@@ -58,23 +53,42 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void update(Long profileId, String name, String surname, String quote) {
+    public void update(Long profileId, String name, String surname, String quote, Date dateOfBirth, String pathToImage) {
         if (sessionService.getUser() == null){
             throw new RuntimeException();
         }
 
-        Profile profile = profileRepository.findById(profileId).get();
+        Optional<Profile> optionalProfile = profileRepository.findById(profileId);
+        if (!optionalProfile.isPresent()){
+            throw new RuntimeException("No profile!");
+        }
+        Profile profile = optionalProfile.get();
 
         List<UserRole> roles = userRoleRepository.findUserRoleByUserId(sessionService.getUser().getId());
-        if (!roles.contains(UserRoleType.ADMIN) || sessionService.getUser().getId() != profile.getUser().getId()){
+        User user = sessionService.getUser();
+        User updatedUser = profile.getUser();
+        if (!isAdmin(roles) && !Objects.equals(user.getId(), updatedUser.getId())){
             throw new RuntimeException();
         }
 
         profile.setName(name);
         profile.setSurname(surname);
         profile.setQuote(quote);
+        profile.setDateOfBirth(dateOfBirth);
+        profile.setPathToImage(pathToImage);
 
         profileRepository.save(profile);
+    }
+
+    private boolean isAdmin(List<UserRole> roles){
+        for (UserRole role:
+             roles) {
+            if (role.getUserRoleType() == UserRoleType.ADMIN){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

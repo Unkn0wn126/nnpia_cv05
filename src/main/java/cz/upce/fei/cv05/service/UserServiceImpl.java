@@ -1,13 +1,13 @@
 package cz.upce.fei.cv05.service;
 
-import cz.upce.fei.cv05.entity.User;
-import cz.upce.fei.cv05.entity.UserRole;
-import cz.upce.fei.cv05.entity.UserRoleType;
+import cz.upce.fei.cv05.entity.*;
+import cz.upce.fei.cv05.repository.UserHasRoleRepository;
 import cz.upce.fei.cv05.repository.UserRepository;
 import cz.upce.fei.cv05.repository.UserRoleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -20,20 +20,36 @@ public class UserServiceImpl implements UserService {
 
     private final UserRoleRepository userRoleRepository;
 
-    public UserServiceImpl(SessionService sessionService, UserRepository userRepository, UserRoleRepository userRoleRepository) {
+    private final UserHasRoleRepository userHasRoleRepository;
+
+    public UserServiceImpl(SessionService sessionService, UserRepository userRepository, UserRoleRepository userRoleRepository, UserHasRoleRepository userHasRoleRepository) {
         this.sessionService = sessionService;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
+        this.userHasRoleRepository = userHasRoleRepository;
     }
 
     @Override
-    public void add(String userName, String email, String password) {
+    public User add(String userName, String email, String password) {
         User user = new User();
         user.setName(userName);
         user.setEmail(email);
         user.setPassword(password);
+        UserRole userRole = userRoleRepository.findById(2L).get();
+        UserHasRole userHasRole = new UserHasRole();
+        userHasRole.setUser(user);
+        userHasRole.setRole(userRole);
+        user.setUserRoles(new HashSet<>());
+        user.getUserRoles().add(userHasRole);
+        userRole.setUserRoles(new HashSet<>());
+        userRole.getUserRoles().add(userHasRole);
 
         userRepository.save(user);
+        userRoleRepository.save(userRole);
+        userHasRole.setId(new UserHasRoleId(user.getId(), userRole.getId()));
+        userHasRoleRepository.save(userHasRole);
+
+        return user;
     }
 
     @Override
@@ -51,6 +67,11 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
 
         userRepository.save(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override

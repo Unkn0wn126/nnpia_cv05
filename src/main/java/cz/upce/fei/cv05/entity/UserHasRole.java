@@ -18,12 +18,12 @@ public class UserHasRole {
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @MapsId("user_id")
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @MapsId("role_id")
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private UserRole role;
 
     @Override

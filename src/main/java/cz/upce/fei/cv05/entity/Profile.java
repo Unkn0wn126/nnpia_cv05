@@ -2,6 +2,7 @@ package cz.upce.fei.cv05.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -33,6 +34,7 @@ public class Profile {
     private String quote;
 
     @Column()
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
     @Column()

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head ::htmlHead"></head>
+<body>
+<div th:replace="fragments/navigation ::navbar"></div>
+<section>
+    <form action="#" th:action="@{/post-form-process}"
+          th:object="${post}" method="post">
+        <label>Heading</label>
+        <input type="text" th:field="*{heading}">
+        <label>Content</label>
+        <textarea th:field="*{content}"></textarea>
+        <input type="submit">
+    </form>
+</section>
+</body>
+</html>

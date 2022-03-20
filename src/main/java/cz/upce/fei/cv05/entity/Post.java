@@ -2,6 +2,7 @@ package cz.upce.fei.cv05.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -35,5 +36,6 @@ public class Post {
     private Set<Reaction> postReactions;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private Date postedAt;
 }

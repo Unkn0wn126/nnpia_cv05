@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head ::htmlHead"></head>
+<body>
+<div th:replace="fragments/navigation ::navbar"></div>
+</body>
+<section>
+    <div>
+        <img th:if="${user.profile.pathToImage != null}" th:src="@{/images/{path} (path=${user.profile.pathToImage})}" width="100">
+        <h3 th:text="${user.profile.name} + ' ' + ${user.profile.surname}"></h3>
+        <p th:text="'User name ' + ${user.name}"></p>
+        <p th:text="'E-mail ' + ${user.email}"></p>
+        <p th:text="'Quote ' + ${user.profile.quote}"></p>
+        <p th:text="'Date of birth ' + ${user.profile.dateOfBirth}"></p>
+        <a th:if="${canEdit}" th:href="@{/user-form/{id}(id=${user.id})}">Edit</a>
+    </div>
+</section>
+</html>

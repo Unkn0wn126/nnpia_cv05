@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head ::htmlHead"></head>
+<body>
+<div th:replace="fragments/navigation ::navbar"></div>
+</body>
+<section>
+    <form action="#" th:action="@{/user-form-process}"
+          th:object="${user}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}">
+        <label>User name</label>
+        <input type="text" th:field="*{name}">
+        <label>E-mail</label>
+        <input type="text" th:field="*{email}">
+        <label>Password</label>
+        <input type="password" th:field="*{password}">
+        <label>First name</label>
+        <input type="text" th:field="*{profile.name}">
+        <label>Surname</label>
+        <input type="text" th:field="*{profile.surname}">
+        <label>Quote</label>
+        <input type="text" th:field="*{profile.quote}">
+        <label>Date of birth</label>
+        <input type="date" th:field="*{profile.dateOfBirth}">
+        <label>Profile picture</label>
+        <input type="file" th:field="*{profile.image}">
+        <input type="submit">
+    </form>
+</section>
+</html>

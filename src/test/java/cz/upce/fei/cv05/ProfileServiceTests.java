@@ -33,7 +33,7 @@ class ProfileServiceTests {
     void addProfileToUser() {
         userService.add("root", "email@example.com", "1234");
         userService.login("root", "1234");
-        profileService.add(sessionService.getUser().getId(), "Admin", "Root", "I am root!", new Date(0));
+        profileService.add(sessionService.getUser().getId(), "Admin", "Root", "I am root!", new Date(0), null);
 
         Profile profile = profileService.getProfileByUserId(sessionService.getUser().getId());
         Assertions.assertThat(profile.getUser().getId()).isEqualTo(sessionService.getUser().getId());

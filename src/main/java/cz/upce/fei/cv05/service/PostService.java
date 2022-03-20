@@ -7,11 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface PostService extends JpaRepository<Post, Long> {
-    void add(String heading, String content);
+public interface PostService{
+    void add(Post post);
     void update(Long id, String heading, String content);
     Post getPost(Long id);
     List<Post> getProfilePosts(Long profileId);
+    List<Post> getAllPosts();
     List<Post> getChildPosts(Long postId);
     List<Reaction> getPostReactions(Long postId);
     void addPostReaction(Long postId, Long profileId, ReactionType reactionType);

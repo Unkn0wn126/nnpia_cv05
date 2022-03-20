@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head ::htmlHead"></head>
+<body>
+<div th:replace="fragments/navigation ::navbar"></div>
+</body>
+<section>
+    <div th:each="post : ${posts}">
+        <img th:if="${post.profile.pathToImage != null}" th:src="@{/images/{path} (path=${post.profile.pathToImage})}" width="100">
+        <a th:href="@{/post-detail/{id}(id=${post.id})}"><h3 th:text="${post.heading}"></h3></a>
+        <p th:text="'Posted by ' + ${post.profile.name} + ' ' + ${post.profile.surname}"></p>
+        <p th:text="'Posted at ' + ${post.postedAt}"></p>
+        <p th:text="${post.content}"></p>
+    </div>
+</section>
+</html>
