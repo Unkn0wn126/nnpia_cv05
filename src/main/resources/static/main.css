@@ -351,7 +351,7 @@ template {
 body{
     font-family: sans-serif;
     height: 100%;
-    background-color: #a53f2b;
+    background-color: #0b4f6c;
 }
 
 .wrapper{
@@ -363,7 +363,7 @@ body{
 
 .form-container{
     text-align: center;
-    background-color: #f0ffce;
+    background-color: #fbfbff;
     width: 50%;
     margin: 50px auto auto;
     height: 100%;
@@ -371,22 +371,23 @@ body{
 
 .form-item{
     padding: 5px;
+    color: #0b4f6c;
 }
 
 .form-button{
-    background-color: #a53f2b;
+    background-color: #01baef;
     border: 2px solid;
-    border-color: #280004;
+    border-color: #01baef;
     border-radius: 5px;
     padding: 5px;
     text-decoration: none;
-    color: #f0ffce;
+    color: #0b4f6c;
     font-size: 1em;
     display: inline-block;
 }
 
 .navigation{
-    background-color: #ccc9a1;
+    background-color: #dcdce6;
     height: 50px;
     display: flex;
     flex-wrap: wrap;
@@ -400,13 +401,14 @@ body{
 .nav-item{
     padding: 5px;
     text-decoration: none;
-    color: #a53f2b;
+    color: #0b4f6c;
 }
 
 .profile-image{
     border-radius: 50%;
     width: 100px;
     height: 100px;
+    border: 2px solid #0b4f6c;
 }
 
 .post-list{
@@ -415,11 +417,11 @@ body{
 }
 
 .post {
-    min-width: 200px;
+    width: 80%;
     margin: 5px;
     padding: 5px;
     border: 1px solid #280004;
-    background-color: #f0ffce;
+    background-color: #fbfbff;
 }
 
 .user-list{
@@ -428,11 +430,11 @@ body{
 }
 
 .user {
-    min-width: 200px;
+    width: 80%;
     margin: 5px;
     padding: 5px;
     border: 1px solid #280004;
-    background-color: #f0ffce;
+    background-color: #fbfbff;
 }
 
 .content {

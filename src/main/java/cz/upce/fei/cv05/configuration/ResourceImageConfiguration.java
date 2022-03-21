@@ -11,8 +11,8 @@ public class ResourceImageConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
-                .addResourceLocations("file:E:\\Projects\\NNPIA\\cv05\\images\\");
+                .addResourceLocations("file:D:\\stuff\\Projects\\NNPIA\\nnpia_cv05\\images\\");
         registry.addResourceHandler("/static/**")
-                .addResourceLocations("file:E:\\Projects\\NNPIA\\cv05\\src\\main\\resources\\static\\");
+                .addResourceLocations("file:D:\\stuff\\Projects\\NNPIA\\nnpia_cv05\\src\\main\\resources\\static\\");
     }
 }
